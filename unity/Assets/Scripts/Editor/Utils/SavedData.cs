@@ -90,6 +90,11 @@ namespace Assets.Scripts.Editor.Utils
             var savedValue = new SavedString(name, null);
             var splitValues = savedValue.Value.Split(';');
 
+            if (splitValues.Length < 3)
+            {
+                return aDefault;
+            }
+
             return new Vector3(float.Parse(splitValues[0]), float.Parse(splitValues[1]), float.Parse(splitValues[2]));
         }
 

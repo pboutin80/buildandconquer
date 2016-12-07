@@ -1,4 +1,5 @@
 ﻿
+using Assets.Scripts.Editor.Utils;
 using Map;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace Tools.Map
         {
             TerrainData terrainData = new TerrainData();
             terrainData.heightmapResolution = 1025;
-            terrainData.size = new Vector3(1000f, 600f, 1000f);
+            terrainData.size = aSize;
             terrainData.heightmapResolution = aHeightMapResolution;
             terrainData.baseMapResolution = aBaseMapResolution;
             terrainData.SetDetailResolution(1024, 16);
@@ -86,13 +87,18 @@ namespace Tools.Map
             {
                 if (!mEditedLevelMap.LevelTerrain)
                 {
-                    mTerrainConfiguration.Size = EditorGUILayout.Vector3Field("Terrain Size", mTerrainConfiguration.Size);
-                    mTerrainConfiguration.BaseMapResolution = EditorGUILayout.IntField("Base Resolution", mTerrainConfiguration.BaseMapResolution);
-                    mTerrainConfiguration.HeightMapResolution = EditorGUILayout.IntField("HeightMap pResolution", mTerrainConfiguration.HeightMapResolution);
+                    mTerrainConfiguration.Size.Value = EditorGUILayout.Vector3Field("Terrain Size", mTerrainConfiguration.Size.Value);
+                    mTerrainConfiguration.BaseMapResolution.Value = EditorGUILayout.IntField("Base Resolution", mTerrainConfiguration.BaseMapResolution.Value);
+                    mTerrainConfiguration.HeightMapResolution.Value = EditorGUILayout.IntField("HeightMap pResolution", mTerrainConfiguration.HeightMapResolution.Value);
 
                     if (GUILayout.Button("Create Terrain"))
                     {
+                        var terrainObject = CreateTerrain(mEditedLevelMap.gameObject, 
+                            mTerrainConfiguration.Size.Value, 
+                            mTerrainConfiguration.HeightMapResolution.Value, 
+                            mTerrainConfiguration.BaseMapResolution.Value);
 
+                        mEditedLevelMap.LevelTerrain = terrainObject.GetComponent<Terrain>();
                     }
                 }
                 else
@@ -108,12 +114,11 @@ namespace Tools.Map
         }
     }
 
-    [Serializable]
     public class LevelMapTerrainConfiguration
     {
-        public Vector3 Size;
-        public int HeightMapResolution;
-        public int BaseMapResolution;
+        public readonly SavedVector3 Size = new SavedVector3("LevelMapTerrainConfiguration.Size", new Vector3(1000f, 600f, 1000f));
+        public readonly SavedInt HeightMapResolution = new SavedInt("LevelMapTerrainConfiguration.HeightMapResolution", 512);
+        public readonly SavedInt BaseMapResolution = new SavedInt("LevelMapTerrainConfiguration.BaseMapResolution", 1024);
     }
 
     [Serializable]
