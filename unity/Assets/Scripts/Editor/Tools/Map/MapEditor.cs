@@ -3,6 +3,7 @@ using Assets.Scripts.Editor.Utils;
 using Map;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -121,18 +122,79 @@ namespace Tools.Map
         public readonly SavedInt BaseMapResolution = new SavedInt("LevelMapTerrainConfiguration.BaseMapResolution", 1024);
     }
 
-    [Serializable]
     public class LevelMapConfiguration
     {
-        public List<PropsItem> PropsItems = new List<PropsItem>();
+        private List<PropsItem> mPropsItems = new List<PropsItem>();
+        private SavedString mSavedItems = new SavedString("LevelMapConfiguration.PropsItems");
+
+        public List<PropsItem> PropsItems
+        {
+            get { return mPropsItems; }
+        }
+
+        public void FromSerializedString(string aString)
+        {
+            mPropsItems.Clear();
+            var splitValues = aString.Split('|');
+            for (int i = 0; i < splitValues.Length; i++)
+            {
+                mPropsItems.Add(PropsItem.FromString(splitValues[i]));
+            }
+        }
+
+        public string ToSerializedString()
+        {
+            return string.Join("|", mPropsItems.Select(item => item.ToSerializedString()).ToArray());
+        }
     }
 
-    [Serializable]
     public class PropsItem
     {
-        public GameObject Element;
+        public string Name;
+        public string Guid;
         [Range(0, 1000)]
         public int Quantity = 10;
+
+        private GameObject mElement;
+
+        public GameObject Element
+        {
+            get { return mElement ?? (mElement = AssetLoader.FindByGuid<GameObject>(Guid)); }
+        }
+
+        public static PropsItem FromString(string aString)
+        {
+            var item = new PropsItem();
+            item.FromSerializedString(aString);
+            return item;
+        }
+
+        public PropsItem()
+        {
+
+        }
+
+        public PropsItem(GameObject aObject)
+        {
+            Name = aObject.name;
+        }
+
+        public void FromSerializedString(string aString)
+        {
+            var splitValues = aString.Split(';');
+            if (splitValues.Length < 3)
+            {
+                return;
+            }
+            Name = splitValues[0];
+            Guid = splitValues[1];
+            Quantity = int.Parse(splitValues[2]);
+        }
+
+        public string ToSerializedString()
+        {
+            return string.Format("{0};{1};{2}", Name, Guid, Quantity);
+        }
     }
 
 

@@ -52,7 +52,7 @@ namespace Assets.Scripts.Editor.Utils
             SetValue = EditorPrefs.SetFloat;
         }
 
-        public SavedFloat(string name, float value) : base(name, value) { }
+        public SavedFloat(string name, float value = 0F) : base(name, value) { }
     }
 
     public class SavedInt : Saved<int>
@@ -63,7 +63,7 @@ namespace Assets.Scripts.Editor.Utils
             SetValue = EditorPrefs.SetInt;
         }
 
-        public SavedInt(string name, int value) : base(name, value) { }
+        public SavedInt(string name, int value = 0) : base(name, value) { }
     }
 
     public class SavedString : Saved<string>
@@ -74,7 +74,7 @@ namespace Assets.Scripts.Editor.Utils
             SetValue = EditorPrefs.SetString;
         }
 
-        public SavedString(string name, string value) : base(name, value) { }
+        public SavedString(string name, string value = null) : base(name, value) { }
     }
 
     public class SavedVector3 : Saved<Vector3>
