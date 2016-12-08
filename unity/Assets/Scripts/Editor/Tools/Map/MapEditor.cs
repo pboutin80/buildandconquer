@@ -16,16 +16,16 @@ namespace Tools.Map
     {
         private Vector2 mItemsScrollPosition;
 
-        [SerializeField]
         private LevelMapTerrainConfiguration mTerrainConfiguration = new LevelMapTerrainConfiguration();
-
         private LevelMap mEditedLevelMap;
+
 
         [MenuItem("GameObject/Game/LevelMap", priority = 10)]
         public static void CreateLevelMap()
         {
             var name = GameObjectUtility.GetUniqueNameForSibling(null, "LevelMap");
             var newLevel = new GameObject(name, new[] { typeof(LevelMap) });
+
         }
 
         private static GameObject CreateTerrain(GameObject aParent, Vector3 aSize, int aHeightMapResolution, int aBaseMapResolution)
@@ -62,26 +62,26 @@ namespace Tools.Map
             {
                 GUILayout.Label("Items", new GUIStyle("label") { fontSize = 11, fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter }, GUILayout.Height(20F));
 
+                if (GUILayout.Button("Add New Item"))
+                {
+                    mEditedLevelMap.MapConfiguration.PropsItems.Add(new PropsItem());
+                }
+
                 using (var scrollView = new EditorGUILayout.ScrollViewScope(mItemsScrollPosition, GUILayout.MaxHeight(150F)))
                 {
                     mItemsScrollPosition = scrollView.scrollPosition;
 
-                    //foreach (var item in collection)
-                    //{
-
-                    //}
-
+                    for (int i = 0; i < mEditedLevelMap.MapConfiguration.PropsItems.Count; i++)
+                    {
+                        var item = mEditedLevelMap.MapConfiguration.PropsItems[i];
+                        DrawPropsItem(item, (propsItem) => { mEditedLevelMap.MapConfiguration.PropsItems.RemoveAt(i); i--; });
+                    }
                 }
 
+                if (GUILayout.Button("Spawn Items"))
+                {
 
-
-
-
-
-
-
-
-
+                }
             }
 
             using (new EditorGUILayout.VerticalScope(GUI.skin.box))
@@ -108,10 +108,29 @@ namespace Tools.Map
                     EditorGUILayout.PropertyField(levelTerrainProp);
                 }
 
-                DrawPropertiesExcluding(serializedObject, "m_Script", "LevelTerrain");
+                DrawPropertiesExcluding(serializedObject, "m_Script", "LevelTerrain", "m_MapConfiguration");
             }
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private void DrawPropsItem(PropsItem aItem, Action<PropsItem> aOnRemove)
+        {
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUILayout.VerticalScope())
+                {
+                    aItem.Prefab = EditorGUILayout.ObjectField(aItem.Prefab, typeof(GameObject), false) as GameObject;
+                }
+                using (new EditorGUILayout.VerticalScope())
+                {
+                    aItem.Quantity = EditorGUILayout.IntField("Quantity", aItem.Quantity);
+                }
+                if (GUILayout.Button("X"))
+                {
+                    aOnRemove(aItem);
+                }
+            }
         }
     }
 
@@ -121,81 +140,4 @@ namespace Tools.Map
         public readonly SavedInt HeightMapResolution = new SavedInt("LevelMapTerrainConfiguration.HeightMapResolution", 512);
         public readonly SavedInt BaseMapResolution = new SavedInt("LevelMapTerrainConfiguration.BaseMapResolution", 1024);
     }
-
-    public class LevelMapConfiguration
-    {
-        private List<PropsItem> mPropsItems = new List<PropsItem>();
-        private SavedString mSavedItems = new SavedString("LevelMapConfiguration.PropsItems");
-
-        public List<PropsItem> PropsItems
-        {
-            get { return mPropsItems; }
-        }
-
-        public void FromSerializedString(string aString)
-        {
-            mPropsItems.Clear();
-            var splitValues = aString.Split('|');
-            for (int i = 0; i < splitValues.Length; i++)
-            {
-                mPropsItems.Add(PropsItem.FromString(splitValues[i]));
-            }
-        }
-
-        public string ToSerializedString()
-        {
-            return string.Join("|", mPropsItems.Select(item => item.ToSerializedString()).ToArray());
-        }
-    }
-
-    public class PropsItem
-    {
-        public string Name;
-        public string Guid;
-        [Range(0, 1000)]
-        public int Quantity = 10;
-
-        private GameObject mElement;
-
-        public GameObject Element
-        {
-            get { return mElement ?? (mElement = AssetLoader.FindByGuid<GameObject>(Guid)); }
-        }
-
-        public static PropsItem FromString(string aString)
-        {
-            var item = new PropsItem();
-            item.FromSerializedString(aString);
-            return item;
-        }
-
-        public PropsItem()
-        {
-
-        }
-
-        public PropsItem(GameObject aObject)
-        {
-            Name = aObject.name;
-        }
-
-        public void FromSerializedString(string aString)
-        {
-            var splitValues = aString.Split(';');
-            if (splitValues.Length < 3)
-            {
-                return;
-            }
-            Name = splitValues[0];
-            Guid = splitValues[1];
-            Quantity = int.Parse(splitValues[2]);
-        }
-
-        public string ToSerializedString()
-        {
-            return string.Format("{0};{1};{2}", Name, Guid, Quantity);
-        }
-    }
-
-
 }
