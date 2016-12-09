@@ -5,21 +5,19 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0649F234-A0EB-9976-98D5-1E0F555E79DA}</ProjectGuid>
+    <ProjectGuid>{DD03665D-775E-E157-B925-901060156EA3}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
-    <UnityProjectType>Game:1</UnityProjectType>
+    <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.5f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -65,22 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Attributes\ConfigurationInterfaceAttribute.cs" />
-    <Compile Include="Assets\Scripts\Components\BuildableItem.cs" />
-    <Compile Include="Assets\Scripts\Components\ConsumableItem.cs" />
-    <Compile Include="Assets\Scripts\Economy\Currency.cs" />
-    <Compile Include="Assets\Scripts\Enums\ItemEnums.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Gameplay\CameraController.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\SpecializedInterfaces.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\TemplateInterfaces.cs" />
-    <Compile Include="Assets\Scripts\Map\LevelMap.cs" />
-    <Compile Include="Assets\Scripts\Templates\ItemTemplate.cs" />
-    <Compile Include="Assets\Scripts\Tester.cs" />
-    <Compile Include="Assets\Scripts\Utils\GuidGenerator.cs" />
-    <Compile Include="Assets\Scripts\Utils\ObjectExtensions.cs" />
-    <Compile Include="Assets\Scripts\Utils\ReflectionUtility.cs" />
-    <Compile Include="Assets\Scripts\Utils\TypeFinder.cs" />
+    <Compile Include="Assets\Plugins\MeshExtrusion.cs" />
+    <Compile Include="Assets\Plugins\Perlin.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

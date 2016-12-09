@@ -63,6 +63,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="unity.CSharp.Plugins.csproj">
+      <Project>{DD03665D-775E-E157-B925-901060156EA3}</Project>
+      <Name>unity.CSharp.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\Scripts\Attributes\ConfigurationInterfaceAttribute.cs" />
     <Compile Include="Assets\Scripts\Components\BuildableItem.cs" />
     <Compile Include="Assets\Scripts\Components\ConsumableItem.cs" />
@@ -79,6 +85,7 @@
     <Compile Include="Assets\Scripts\Utils\ObjectExtensions.cs" />
     <Compile Include="Assets\Scripts\Utils\ReflectionUtility.cs" />
     <Compile Include="Assets\Scripts\Utils\TypeFinder.cs" />
+    <Compile Include="Assets\Sources\LightningBolt.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

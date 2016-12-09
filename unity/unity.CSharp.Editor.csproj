@@ -91,8 +91,15 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Assembly-UnityScript">
+      <HintPath>Library\ScriptAssemblies\Assembly-UnityScript.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="unity.CSharp.Plugins.csproj">
+      <Project>{DD03665D-775E-E157-B925-901060156EA3}</Project>
+      <Name>unity.CSharp.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="unity.CSharp.csproj">
       <Project>{7E182C22-A798-BDAD-9C7D-1FF20524B48E}</Project>
       <Name>unity.CSharp</Name>
@@ -104,6 +111,7 @@
     <Compile Include="Assets\Scripts\Editor\CustomDrawers\InspectorPropertyDrawer.cs" />
     <Compile Include="Assets\Scripts\Editor\Tools\ItemTemplateCreator.cs" />
     <Compile Include="Assets\Scripts\Editor\Tools\Map\MapEditor.cs" />
+    <Compile Include="Assets\Scripts\Editor\Tools\Utility\HeightmapFilters.cs" />
     <Compile Include="Assets\Scripts\Editor\Utils\AssetLoader.cs" />
     <Compile Include="Assets\Scripts\Editor\Utils\SavedData.cs" />
   </ItemGroup>

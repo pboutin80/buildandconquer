@@ -7,18 +7,28 @@ namespace Map
 {
     public class LevelMap : MonoBehaviour
     {
+        public Terrain LevelTerrain;
         [SerializeField]
         private LevelMapConfiguration m_MapConfiguration;
-        public Terrain LevelTerrain;
+
+        private bool mInitialized;
 
         public LevelMapConfiguration MapConfiguration { get { return m_MapConfiguration; } }
 
         void Awake()
         {
+            Init();
+        }
+
+        public void Init()
+        {
+            if (mInitialized) return;
+
             if (m_MapConfiguration == null)
             {
                 m_MapConfiguration = ScriptableObject.CreateInstance<LevelMapConfiguration>();
             }
+            mInitialized = true;
         }
     }
 
