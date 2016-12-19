@@ -18,8 +18,10 @@ namespace Tools.Map
     {
         private Vector2 mItemsScrollPosition;
 
-        private TerrainBaseConfiguration mTerrainConfiguration = new TerrainBaseConfiguration();
+        private TerrainBaseConfiguration mTerrainConfiguration;
         private LevelMap mEditedLevelMap;
+        private Texture2D mHeightMapTexture;
+        private SavedFloat mHeightMapAmplitude;
 
         [MenuItem("GameObject/Game/LevelMap", priority = 10)]
         public static void CreateLevelMap()
@@ -32,7 +34,7 @@ namespace Tools.Map
         private static GameObject CreateTerrain(GameObject aParent, Vector3 aSize, int aHeightMapResolution, int aBaseMapResolution)
         {
             TerrainData terrainData = new TerrainData();
-            terrainData.heightmapResolution = 1025;
+            terrainData.heightmapResolution = 1024;
             terrainData.size = aSize;
             terrainData.heightmapResolution = aHeightMapResolution;
             terrainData.baseMapResolution = aBaseMapResolution;
@@ -43,6 +45,12 @@ namespace Tools.Map
             Undo.RegisterCreatedObjectUndo(gameObject, "Create terrain");
 
             return gameObject;
+        }
+
+        private void OnEnable()
+        {
+            mTerrainConfiguration = new TerrainBaseConfiguration();
+            mHeightMapAmplitude = new SavedFloat("HeightMapAmplitude", 1F);
         }
 
         public override void OnInspectorGUI()
@@ -88,9 +96,20 @@ namespace Tools.Map
 
                 }
 
+                if (GUILayout.Button("Load HeightMap Texture..."))
+                {
+                    LoadHeightMapTexture(mEditedLevelMap.LevelTerrain);
+                }
+                mHeightMapAmplitude.Value = EditorGUILayout.DelayedFloatField("HeightMap Amplitude", mHeightMapAmplitude.Value);
+
                 if (GUILayout.Button("Randomize"))
                 {
                     RandomizeMap(mEditedLevelMap.LevelTerrain, new TerrainConfiguration());
+                }
+
+                if (GUILayout.Button("Clear Heights"))
+                {
+                    ClearTerrainHeights(mEditedLevelMap.LevelTerrain);
                 }
             }
 
@@ -131,7 +150,7 @@ namespace Tools.Map
                 {
                     mTerrainConfiguration.Size.Value = EditorGUILayout.Vector3Field("Terrain Size", mTerrainConfiguration.Size.Value);
                     mTerrainConfiguration.BaseMapResolution.Value = EditorGUILayout.IntField("Base Resolution", mTerrainConfiguration.BaseMapResolution.Value);
-                    mTerrainConfiguration.HeightMapResolution.Value = EditorGUILayout.IntField("HeightMap pResolution", mTerrainConfiguration.HeightMapResolution.Value);
+                    mTerrainConfiguration.HeightMapResolution.Value = EditorGUILayout.IntField("HeightMap Resolution", mTerrainConfiguration.HeightMapResolution.Value);
 
                     if (GUILayout.Button("Create Terrain"))
                     {
@@ -151,6 +170,26 @@ namespace Tools.Map
 
                 DrawPropertiesExcluding(serializedObject, "m_Script", "LevelTerrain", "m_MapConfiguration");
             }
+        }
+
+        private void LoadHeightMapTexture(Terrain aTerrain)
+        {
+            var lastFile = new SavedString("HeightMapTextureLastFilePath");
+            var file = EditorUtility.OpenFilePanel("Browser for HeightMap Texture file", lastFile, "png");
+
+            if (string.IsNullOrEmpty(file))
+            {
+                return;
+            }
+
+            lastFile.Value = file;
+
+            file = "file:///" + file;
+
+            mHeightMapTexture = new Texture2D(4, 4);
+            new WWW(file).LoadImageIntoTexture(mHeightMapTexture);
+
+            TerrainUtility.SetHeightMapFromTexture(aTerrain.terrainData, mHeightMapTexture, mHeightMapAmplitude.Value);
         }
 
         private void RandomizeMap(Terrain aTerrain, TerrainConfiguration aConfig)
@@ -181,6 +220,15 @@ namespace Tools.Map
 
             HeightmapFilters.Smooth(data);
             aTerrain.Flush();
+        }
+
+        private void ClearTerrainHeights(Terrain levelTerrain)
+        {
+            var width = levelTerrain.terrainData.heightmapWidth;
+            var height = levelTerrain.terrainData.heightmapHeight;
+
+            float[,] heights = new float[width, height];
+            levelTerrain.terrainData.SetHeights(0, 0, heights);
         }
     }
 

@@ -42,3 +42,4 @@ UpgradeLog*.htm
 # Unity
 **/Library/
 **/Temp/
+**/Build/

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Map
 {
+    [SelectionBase]
     public class LevelMap : MonoBehaviour
     {
         public Terrain LevelTerrain;
