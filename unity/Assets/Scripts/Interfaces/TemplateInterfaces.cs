@@ -1,11 +1,11 @@
 ﻿
-using Assets.Scripts.Economy;
-using Assets.Scripts.Enums;
+using Core.Attributes;
+using Core.Economy;
+using Core.Enums;
 using System;
-using Assets.Scripts.Attributes;
 using UnityEngine;
 
-namespace Assets.Scripts.Interfaces
+namespace Core.Units.Interfaces
 {
     [ConfigurationInterface]
     public interface IConsumableItem

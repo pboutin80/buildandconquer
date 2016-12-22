@@ -1,5 +1,6 @@
 ﻿
-using Assets.Scripts.Interfaces;
+using Core.Units.Components;
+using Core.Units.Interfaces;
 using UnityEngine;
 
 namespace Assets.Scripts.Components

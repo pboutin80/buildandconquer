@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Scripts.Attributes
+namespace Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Interface)]
     public class ConfigurationInterfaceAttribute : Attribute

@@ -1,61 +1,65 @@
 ﻿using System;
 using UnityEngine;
 
-public class InputHandler : MonoBehaviour
+namespace Core.Inputs
 {
-    public Action<Vector3> PressedGround;
-
-    private Terrain mLevelTerrain;
-    private int mGroundLayerMask;
-
-    private Vector3 mDownPosition;
-
-    // Use this for initialization
-    void Start ()
+    public class InputHandler : MonoBehaviour
     {
-        mLevelTerrain = GetComponent<Terrain>();
-        mGroundLayerMask = LayerMask.GetMask("Ground");
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        if (PressedGround != null)
+        public Action<Vector3> PressedGround;
+
+        private Terrain mLevelTerrain;
+        private int mGroundLayerMask;
+
+        private Vector3 mDownPosition;
+
+        // Use this for initialization
+        void Start()
         {
-            mDownPosition = new Vector3();
-            if (IsMouseOrTouchDown(ref mDownPosition, mGroundLayerMask))
+            mLevelTerrain = GetComponent<Terrain>();
+            mGroundLayerMask = LayerMask.GetMask("Ground");
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (PressedGround != null)
             {
-                PressedGround(mDownPosition);
-            }
-        }
-    }
-
-    private static bool IsMouseOrTouchDown(ref Vector3 aWorldPosition, int aLayerMask, int aButton = 0)
-    {
-        var isDown = false;
-        Vector2 inputPosition;
-        if (Input.touchSupported && Input.touchCount > 0)
-        {
-            var touch = Input.GetTouch(0);
-            isDown = touch.phase == TouchPhase.Began;
-            inputPosition = touch.position;
-        }
-        else
-        {
-            isDown = Input.GetMouseButtonDown(aButton);
-            inputPosition = Input.mousePosition;
-        }
-
-        if (isDown)
-        {
-            RaycastHit hit;
-            var ray = Camera.main.ScreenPointToRay(inputPosition);
-            if (Physics.Raycast(ray, out hit, 1000F, aLayerMask))
-            {
-                aWorldPosition = hit.point;
+                mDownPosition = new Vector3();
+                if (IsMouseOrTouchDown(ref mDownPosition, mGroundLayerMask))
+                {
+                    PressedGround(mDownPosition);
+                }
             }
         }
 
-        return isDown;
+        private static bool IsMouseOrTouchDown(ref Vector3 aWorldPosition, int aLayerMask, int aButton = 0)
+        {
+            var isDown = false;
+            Vector2 inputPosition;
+            if (Input.touchSupported && Input.touchCount > 0)
+            {
+                var touch = Input.GetTouch(0);
+                isDown = touch.phase == TouchPhase.Began;
+                inputPosition = touch.position;
+            }
+            else
+            {
+                isDown = Input.GetMouseButtonDown(aButton);
+                inputPosition = Input.mousePosition;
+            }
+
+            if (isDown)
+            {
+                RaycastHit hit;
+                var ray = Camera.main.ScreenPointToRay(inputPosition);
+                if (Physics.Raycast(ray, out hit, 1000F, aLayerMask))
+                {
+                    aWorldPosition = hit.point;
+                }
+            }
+
+            return isDown;
+        }
     }
 }
+

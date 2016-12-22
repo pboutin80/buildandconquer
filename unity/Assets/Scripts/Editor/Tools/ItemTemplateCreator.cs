@@ -6,8 +6,8 @@ using UnityEngine;
 using Assets.Scripts.Utils;
 using UnityEditor.Callbacks;
 using System.IO;
-using Assets.Scripts.Attributes;
 using Assets.Scripts.Editor.Config;
+using Core.Attributes;
 
 namespace Tools
 {

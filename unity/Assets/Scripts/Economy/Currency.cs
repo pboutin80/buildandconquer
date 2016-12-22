@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Scripts.Economy
+namespace Core.Economy
 {
     public enum Currency
     {

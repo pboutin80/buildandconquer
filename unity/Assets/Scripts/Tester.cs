@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using Assets.Scripts.Economy;
+﻿using Core.Economy;
+using UnityEngine;
 
 public class Tester : MonoBehaviour
 {

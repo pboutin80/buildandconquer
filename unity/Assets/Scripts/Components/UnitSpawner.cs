@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Core.Inputs;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitSpawner : MonoBehaviour
@@ -12,7 +13,7 @@ public class UnitSpawner : MonoBehaviour
     private GameObject mTargetSpot;
 
 	// Use this for initialization
-	void Start ()
+	void Start()
     {
         mLevelTerrain = GetComponent<Terrain>();
         mInputHandler = GetComponent<InputHandler>();

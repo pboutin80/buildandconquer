@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using StrategyGame.Extensions;
 using System.IO;
+using Core.Extensions;
 
 namespace Assets.Scripts.Editor
 {

@@ -1,26 +1,32 @@
-﻿using UnityEngine;
+﻿using Core.Units.Interfaces;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class UnitController : MonoBehaviour
 {
-    public float Speed = 2;
     [HideInInspector]
     public Transform Target;
 
     private NavMeshAgent mAgent;
 
 	// Use this for initialization
-	void Start ()
+	void Start()
     {
         mAgent = GetComponent<NavMeshAgent>();
     }
 	
 	// Update is called once per frame
-	void Update ()
+	void Update()
     {
         if (Target)
         {
             mAgent.SetDestination(Target.position);
         }
-	}
+    }
+
+    public void ApplySettingsFrom(IMoveableItem aItem)
+    {
+        mAgent.speed = aItem.Speed;
+        mAgent.updateRotation = aItem.CanRotate;
+    }
 }

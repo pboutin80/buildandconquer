@@ -1,5 +1,4 @@
-using Assets.Scripts.Economy;
-using Assets.Scripts.Interfaces;
+using Core.Economy;
 using UnityEngine;
 
 namespace Assets.Scripts.Templates

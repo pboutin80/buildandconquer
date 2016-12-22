@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Core.Attributes;
+using System;
 using System.Collections.Generic;
-using Assets.Scripts.Attributes;
 
-namespace Assets.Scripts.Interfaces
+namespace Core.Units.Interfaces
 {
     [ConfigurationInterface]
     public interface IProducerItem

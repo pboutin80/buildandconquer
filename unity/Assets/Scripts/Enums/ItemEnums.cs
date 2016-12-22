@@ -1,5 +1,5 @@
 ﻿
-namespace Assets.Scripts.Enums
+namespace Core.Enums
 {
     public enum MoveCompletion
     {

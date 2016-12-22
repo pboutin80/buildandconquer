@@ -1,11 +1,11 @@
 ﻿
-using Assets.Scripts.Economy;
-using Assets.Scripts.Interfaces;
+using Core.Economy;
+using Core.Units.Interfaces;
 using UnityEngine;
 
-namespace Assets.Scripts.Components
+namespace Core.Units.Components
 {
-    public class ConsumableItem : IConsumableItem
+    public abstract class ConsumableItem : IConsumableItem
     {
         [SerializeField]
         private Cost cost;
