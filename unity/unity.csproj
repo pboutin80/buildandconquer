@@ -95,14 +95,26 @@
     <Compile Include="Assets\Scripts\Economy\Currency.cs" />
     <Compile Include="Assets\Scripts\Enums\ItemEnums.cs" />
     <Compile Include="Assets\Scripts\Extensions\ArrayExtensions.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Gameplay\CameraController.cs" />
     <Compile Include="Assets\Scripts\Inputs\InputHandler.cs" />
+    <Compile Include="Assets\Scripts\Inputs\InputWaiter.cs" />
     <Compile Include="Assets\Scripts\Interfaces\SpecializedInterfaces.cs" />
     <Compile Include="Assets\Scripts\Interfaces\TemplateInterfaces.cs" />
+    <Compile Include="Assets\Scripts\Loading\GameLoader.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameScreenManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\Managers.cs" />
+    <Compile Include="Assets\Scripts\Managers\SaveGameStorage.cs" />
     <Compile Include="Assets\Scripts\Map\LevelMap.cs" />
+    <Compile Include="Assets\Scripts\Save\SaveGame.cs" />
+    <Compile Include="Assets\Scripts\Sequence\Sequencer.cs" />
     <Compile Include="Assets\Scripts\Templates\ItemTemplate.cs" />
     <Compile Include="Assets\Scripts\Tester.cs" />
+    <Compile Include="Assets\Scripts\UI\Attributes\GUIActionAttribute.cs" />
+    <Compile Include="Assets\Scripts\UI\Data\MenuData.cs" />
+    <Compile Include="Assets\Scripts\UI\Menu\Controllers\MenuController.cs" />
+    <Compile Include="Assets\Scripts\UI\Menu\MainMenuLayout.cs" />
+    <Compile Include="Assets\Scripts\UI\Menu\MenuLayout.cs" />
     <Compile Include="Assets\Scripts\Utils\GuidGenerator.cs" />
     <Compile Include="Assets\Scripts\Utils\ObjectExtensions.cs" />
     <Compile Include="Assets\Scripts\Utils\ReflectionUtility.cs" />
@@ -110,6 +122,8 @@
     <Compile Include="Assets\Sources\LightningBolt.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Art\Fonts\mechanization\Read_Me.txt" />
+    <None Include="Assets\Art\Fonts\saucer\fontinfo.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />

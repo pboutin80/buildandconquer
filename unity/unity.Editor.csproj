@@ -150,8 +150,11 @@
     <Compile Include="Assets\Scripts\Editor\Tools\Utility\TerrainUtility.cs" />
     <Compile Include="Assets\Scripts\Editor\Utils\AssetLoader.cs" />
     <Compile Include="Assets\Scripts\Editor\Utils\SavedData.cs" />
+    <Compile Include="Assets\Scripts\UI\Editor\MenuLayoutInspector.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Art\Fonts\mechanization\Read_Me.txt" />
+    <None Include="Assets\Art\Fonts\saucer\fontinfo.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
